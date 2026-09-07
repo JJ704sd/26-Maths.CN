@@ -1,0 +1,22 @@
+# 本地题目、数据、运行记录和生成论文
+/work/
+/output/
+/tmp/
+/tools/installers/
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+__pycache__/
+.venv/
+.DS_Store
+*.aux
+*.log
+*.toc
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+skills/5writing/templates/**/main.pdf
+skills/5writing/templates/**/fonts/
