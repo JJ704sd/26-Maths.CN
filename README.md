@@ -21,6 +21,9 @@ cd 26-Maths.CN
 | 入口 | 用途 |
 | --- | --- |
 | [使用流程](docs/论文手使用流程.md) | 材料交接、提示词、逐节写作、结果更新 |
+| [论文前交接 Skill](skills/mathmodel-handoff/SKILL.md) | 编程手打包、论文手验收、限时复现与证据整理 |
+| [完整交接操作提示词](docs/论文前交接操作提示词.md) | 可复制的论文前代码与数据准备指令 |
+| [国赛案例与修改依据](skills/mathmodel-handoff/references/cumcm-case-lessons.md) | 官方展示案例原页、规则来源及对应改进 |
 | [安装与编译](docs/安装与编译.md) | Windows MiKTeX、宏包、PDF 编译、常见问题 |
 | [论文手训练](docs/论文手训练.md) | 七天训练与提交检查 |
 | [AI 使用记录模板](docs/AI使用记录模板.md) | 记录真实工具使用与核验过程 |

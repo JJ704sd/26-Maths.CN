@@ -8,6 +8,8 @@ allowed-tools: Bash(*), Read, Write, Edit, Grep, Glob, Agent, WebSearch, WebFetc
 
 本 skill 可独立接收队友代码、数据、结果与笔记，也可承接 `3coding-visual` 和 `4drawio`。保留用户已有材料结构，不强制先运行自动建模流程。
 
+若已用 [mathmodel-handoff](../mathmodel-handoff/SKILL.md) 准备交接包，从包内 `HANDOFF.md` 进入，读取结果报告、证据表及缺项清单；沿用对应版本的有效核验记录，新增或受影响项再复核。将包根目录作为材料根目录或记录到现有论文工程的路径映射，未验证项不得转写为已核实事实。
+
 接收或更新队友材料时，先读取 [代码交接与证据工作流](references/teammate-handoff.md)，完成材料检查、复现、模型理解与提纲确认，再逐节起草。默认交付 LaTeX 源码及 PDF；可另建验证脚本，修改核心模型先确认。用户明确指定的其他工作方式优先。
 
 处理 2026 国赛时，写作前读取 [国赛规则](references/cumcm-2026.md)，规则优先于旧模板，生成真实 AI 使用记录与声明所需材料。其他赛事独立核对其规则。
