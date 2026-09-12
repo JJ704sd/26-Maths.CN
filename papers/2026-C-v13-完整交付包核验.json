@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "bundle": "2026-C-v13-完整交付包.zip",
+  "bytes": 18146732,
+  "sha256": "50ec556f12a0ee70b9b4b06cf63c5501e4217040d7c70a723d58914aa2398226",
+  "files": {
+    "参赛论文.pdf": 856595,
+    "支撑材料.zip": 17288672,
+    "提交说明.txt": 1119
+  },
+  "submission_readiness": "Unresolved requirements remain as documented"
+}

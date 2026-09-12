@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "archive_bytes": 17288672,
+  "archive_sha256": "761037415932496219f26221bb9683a7376fa0b8d43479dbc238aae23d4f5ea8",
+  "checks": {
+    "zip_crc_and_paths": "PASS",
+    "restore_data": "PASS",
+    "baseline_content": "PASS",
+    "paper_sources_and_ai_pdf": "PASS",
+    "verify.py": "PASS",
+    "verify_v11.py": "PASS",
+    "test_regressions.py": "PASS",
+    "final_visual_review": "PASS: all 31 paper pages and 2 AI detail pages reviewed as final rendered contact sheets"
+  },
+  "entries": 243,
+  "restored_baseline_files": 81,
+  "note": "Known appendix source-code conflict remains; package checks do not imply full submission compliance. A generic identity-detection regex in check_submission.py contains wxid_, not an actual identity."
+}

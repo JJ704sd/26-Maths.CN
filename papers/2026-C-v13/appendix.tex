@@ -1,0 +1,60 @@
+\section*{附录：支撑材料文件清单与核心算法}\label{appendix:start}
+\subsection*{A. 支撑材料文件清单}
+完整可运行代码位于支撑材料ZIP。解压后先运行restore\_data.py恢复数据及重复输入，再运行求解或核验。以下按目录列出代码文件名；依赖安装、数据放置与运行命令见“复现说明.md”，完整文件列表见“支撑材料文件清单.txt”。
+
+\noindent\textbf{完整代码/问题1}\par
+求解代码：physics.py；导出表格.mjs；求解问题1.py；结果表格.py。\par
+图片生成代码：生成图片.py。\par
+\vspace{0.4em}
+\noindent\textbf{完整代码/问题2}\par
+求解代码：models.py；physics.py；参数校准.py；导出表格.mjs；求解问题2.py；结果表格.py。\par
+图片生成代码：准备分析数据.py；生成图片.py；补充图像.py。\par
+\vspace{0.4em}
+\noindent\textbf{完整代码/问题3}\par
+求解代码：models.py；physics.py；参数校准.py；导出表格.mjs；求解问题3.py；结果表格.py。\par
+图片生成代码：准备分析数据.py；生成图片.py；补充图像.py。\par
+\vspace{0.4em}
+\noindent\textbf{完整代码/问题4}\par
+求解代码：models.py；physics.py；参数校准.py；导出表格.mjs；求解问题4.py；结果表格.py。\par
+图片生成代码：准备分析数据.py；生成图片.py；补充图像.py。\par
+\vspace{0.4em}
+
+\noindent\textbf{绘图与核验代码}\par
+figures：redraw.py；enrich.py；rebuild\_overview.py。\par
+{\raggedright qa：verify.py；check\_contracts.py；check\_numeric.py；check\_excel.py；test\_regressions.py；verify\_v11.py；check\_analysis\_tables.py；check\_claims.py；check\_model\_boundaries.py；check\_submission.py。\par}
+补充实验：run.py。\par
+支撑包根目录：restore\_data.py。\par
+
+\noindent\textbf{其他支撑文件}\par
+结果文件：result1.xlsx；result2.xlsx；result3.xlsx；result4-2.xlsx；result4-3.xlsx；时间标签映射.csv；费用口径说明.md；时间标签与模板映射说明.md。\par
+数值及绘图数据：各问汇总、逐时记录、逐日记录、紧急购电记录、共同目标预报误差、滚动调整快照、更新策略对照、安全分位数与单侧效率敏感性数据；补充实验的不退款情景逐时记录及汇总。\par
+论文与复现：main.tex；appendix.tex；figures中的15幅PDF图；依赖声明；复现说明.md；数据恢复清单.json；支撑材料文件清单.txt；AI工具使用详情.pdf与.tex。\par
+
+\subsection*{B. 核心算法摘要}
+以下为便于理解的算法步骤，不是可运行源码。完整实现以支撑包对应代码文件为准，符号与正文一致。
+
+\noindent\textbf{算法一：费用优先的储能规划}\par
+对应文件：各问求解代码/physics.py中的optimize。
+\begin{enumerate}
+\item 输入预测净负载、决策时已知电价、当前库存及末端目标；建立功率平衡、库存递推、容量与功率上下限。
+\item 求解费用最小的线性规划，记录最优费用；在其数值容差内再最小化充放电吞吐量。
+\item 检查是否同时充放电；若仍存在，加入二元互斥约束重新求解。返回计划购电与计划储能动作。
+\end{enumerate}
+
+\noindent\textbf{算法二：历史预测与实时纠偏}\par
+对应文件：models.py中的historical\_forecast、safety，以及physics.py中的execute。
+\begin{enumerate}
+\item 零时仅用此前观测形成负载与光伏预测；用此前21个完整日的分块净负载误差非负分位数计算安全裕度。
+\item 以预测净负载加安全裕度调用规划器，形成零时合同；当天真实未来值不参与这一决策。
+\item 每十分钟观测当前供需：有缺口则在功率与库存边界内放电，剩余缺口紧急购电；有盈余则充电，剩余记为未利用电力。
+\item 更新实际库存，以此作为下一时段及下一日的初值，按实际价格累计结算费用。
+\end{enumerate}
+
+\noindent\textbf{算法三：滚动合同的价值触发}\par
+对应文件：models.py中的simulate。
+\begin{enumerate}
+\item 在6、12、18时读取已发布光伏预报并完成偏差校正与融合；波动电价情形只用已发生价格偏差修正剩余价格预测。
+\item 冻结已执行时段，以当前实际库存重新规划剩余合同；退订、增购始终相对零时合同计算。
+\item 在同一安全净负载情景下，用同一执行器分别评价保留与候选合同。评分包含合同费用、预测应急费以及末端不足的0.5元/kWh估值。
+\item 若旧评分减新评分大于$10^{-6}\max(1,|J_{\rm keep}^{\rm eval}|)$，接受候选；否则保留。随后按实际观测执行下一段。实际结算不包含末端不足估值。
+\end{enumerate}
